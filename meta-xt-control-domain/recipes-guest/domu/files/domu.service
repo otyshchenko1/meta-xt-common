@@ -1,6 +1,12 @@
 [Unit]
 Description=DomU
 
+# NOTE 1
+# DomU should be started after DomD, as there are parameters across
+# the system, which rely on DomD having the Xen domain id equal to '1'
+Requires=domd.service
+After=domd.service
+
 [Service]
 Type=oneshot
 ExecStart=/usr/sbin/xl create /etc/xen/domu.cfg
